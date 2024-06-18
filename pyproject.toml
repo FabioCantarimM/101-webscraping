@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "workshop-ws"
+name = "101-WebScraping"
 version = "0.1.0"
 description = ""
 authors = ["Fabio Cantarim <fabio.cantarim@gmail.com>"]
