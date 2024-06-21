@@ -31,7 +31,7 @@ class ProxyControllerAddon:
     
     
     def response(self, flow: HTTPFlow):
-        pass
+        flow.request.content = "Oi"
 
     def set_proxy_configs(self, flow: HTTPFlow):
         if self.has_new_proxy_auth(flow):

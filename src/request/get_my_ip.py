@@ -2,10 +2,9 @@ import requests
 
 url = "http://lumtest.com/myip.json"
 
-# proxy = {
-#     'http': 'http://localhost:8080',
-#     'https': 'http://localhost:8080',
-# }
+proxy = {
+    'http': 'http://localhost:8080',
+}
 
 headers = {
     "header": "content"
@@ -14,8 +13,7 @@ headers = {
 
 # Fazendo a requisição GET
 # response = requests.get(url, proxies=proxy, verify=False, headers=headers)
-# response = requests.get(url, proxies=proxy)
-response = requests.get(url)
+response = requests.get(url, proxies=proxy)
 # Verifica se a requisição foi bem-sucedida (código de status 200)
 if response.status_code == 200:
     # Imprime o conteúdo da resposta (o endereço IP retornado pelo site)

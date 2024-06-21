@@ -1,20 +1,23 @@
 import requests
+from pathlib import Path
 
-# proxy = {
-#     'http': 'http://localhost:8080',
-#     'https': 'http://localhost:8080',
-# }
+proxy = {
+    'http': 'http://localhost:8080',
+    'https': 'http://localhost:8080',
+}
 
 # URL do arquivo que você deseja baixar
 url = 'https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso'
 
-# headers = {
-#     "header" : "content"
-# }
+headers = {
+    
+}
 
-# with requests.get(url, stream=True, proxies=proxy, verify=cert_path, headers=headers) as r:
+cert_path = str(Path("cert/mitmproxy-ca-cert.pem").resolve())
+
+with requests.get(url, stream=True, proxies=proxy, verify=False, headers=headers) as r:
 # with requests.get(url, stream=True, proxies=proxy) as r:    
-with requests.get(url, stream=True) as r:    
+# with requests.get(url, stream=True) as r:    
 # Verifica o tamanho total do arquivo, se disponível
     total_size = r.headers.get('content-length')
     if total_size is None:

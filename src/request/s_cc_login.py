@@ -1,4 +1,5 @@
 import requests
+from pathlib import Path
 import os
 from bs4 import BeautifulSoup
 
@@ -9,8 +10,13 @@ with requests.Session() as s:
     login_url = 'https://www.codechef.com/api/codechef/login'
     dashboard_url = 'https://www.codechef.com/api/learn/dashboard'
 
+    proxy = {
+        'http': 'http://localhost:8080',
+        'https': 'http://localhost:8080',
+    }
+
     # Fazer uma solicitação GET à página inicial para obter o CSRF token
-    context = s.get(login_url)
+    context = s.get(login_url,proxies=proxy, verify=False)
     
     # Procurar pelo CSRF token
     soup = BeautifulSoup(context.content, 'html.parser')
@@ -24,14 +30,14 @@ with requests.Session() as s:
         'csrfToken': cleaned_token,
         'form_build_id': 'form-x2l2KziYvExzt1PijkFSUOClv090dJWthuVUlVYl2LM',
         'form_id': 'ajax_login_form'
-    }
+    }   
 
     # Fazer uma solicitação POST para o endpoint de login
-    login = s.post(url=login_url, data=payload)
+    login = s.post(url=login_url, data=payload, proxies=proxy, verify=False)
 
     if login.status_code == 200:
         print("Login bem-sucedido")
-        dashboard = s.get(url=dashboard_url)
+        dashboard = s.get(url=dashboard_url, proxies=proxy, verify=False)
         if dashboard.status_code == 200:
             print(f'Sucesso ao receber os dados de Dashboard: Status Code - {dashboard.status_code}')
             print(dashboard.text)
